@@ -1,0 +1,1192 @@
+<!DOCTYPE html>
+<html lang="uk">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Essentials - Персональні новини для вас</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell, sans-serif;
+            line-height: 1.6;
+            color: #333;
+            overflow-x: hidden;
+        }
+
+        /* Header */
+        header {
+            position: fixed;
+            top: 0;
+            width: 100%;
+            background: rgba(255, 255, 255, 0.95);
+            backdrop-filter: blur(10px);
+            z-index: 1000;
+            padding: 1rem 0;
+            transition: all 0.3s ease;
+        }
+
+        nav {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 0 2rem;
+        }
+
+        .logo {
+            font-size: 1.5rem;
+            font-weight: 700;
+            color: #2563eb;
+        }
+
+        .nav-links {
+            display: flex;
+            list-style: none;
+            gap: 2rem;
+        }
+
+        .nav-links a {
+            text-decoration: none;
+            color: #333;
+            transition: color 0.3s ease;
+        }
+
+        .nav-links a:hover {
+            color: #2563eb;
+        }
+
+        .cta-button {
+            background: linear-gradient(135deg, #3b82f6, #1d4ed8);
+            color: white;
+            padding: 0.75rem 1.5rem;
+            border-radius: 8px;
+            text-decoration: none;
+            transition: all 0.3s ease;
+            box-shadow: 0 4px 15px rgba(59, 130, 246, 0.3);
+        }
+
+        .cta-button:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 8px 25px rgba(59, 130, 246, 0.4);
+        }
+
+        /* Hero Section */
+        .hero {
+            min-height: 100vh;
+            background: linear-gradient(135deg, #f8fafc 0%, #e2e8f0 100%);
+            display: flex;
+            align-items: center;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .hero::before {
+            content: '';
+            position: absolute;
+            top: -50%;
+            right: -20%;
+            width: 100%;
+            height: 200%;
+            background: linear-gradient(45deg, rgba(59, 130, 246, 0.1), rgba(16, 185, 129, 0.1));
+            border-radius: 50%;
+            animation: float 20s ease-in-out infinite;
+        }
+
+        @keyframes float {
+            0%, 100% { transform: translateY(0px) rotate(0deg); }
+            50% { transform: translateY(-20px) rotate(180deg); }
+        }
+
+        .hero-content {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 0 2rem;
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 4rem;
+            align-items: center;
+            position: relative;
+            z-index: 1;
+        }
+
+        .hero-text {
+            animation: slideInLeft 1s ease-out;
+        }
+
+        @keyframes slideInLeft {
+            from { opacity: 0; transform: translateX(-50px); }
+            to { opacity: 1; transform: translateX(0); }
+        }
+
+        .badge {
+            background: linear-gradient(135deg, #10b981, #059669);
+            color: white;
+            padding: 0.5rem 1rem;
+            border-radius: 20px;
+            font-size: 0.9rem;
+            display: inline-flex;
+            align-items: center;
+            gap: 0.5rem;
+            margin-bottom: 1.5rem;
+            box-shadow: 0 4px 15px rgba(16, 185, 129, 0.3);
+        }
+
+        .hero h1 {
+            font-size: 3.5rem;
+            font-weight: 800;
+            line-height: 1.2;
+            margin-bottom: 1.5rem;
+        }
+
+        .hero h1 .green-text {
+            background: linear-gradient(135deg, #10b981, #059669);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+        }
+
+        .hero h1 .blue-text {
+            background: linear-gradient(135deg, #3b82f6, #1d4ed8);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+        }
+
+        .hero-description {
+            font-size: 1.2rem;
+            color: #64748b;
+            margin-bottom: 2rem;
+        }
+
+        .hero-buttons {
+            display: flex;
+            gap: 1rem;
+            margin-bottom: 2rem;
+        }
+
+        .primary-btn {
+            background: linear-gradient(135deg, #10b981, #059669);
+            color: white;
+            padding: 1rem 2rem;
+            border-radius: 8px;
+            text-decoration: none;
+            font-weight: 600;
+            transition: all 0.3s ease;
+            display: flex;
+            align-items: center;
+            gap: 0.5rem;
+            box-shadow: 0 4px 15px rgba(16, 185, 129, 0.3);
+        }
+
+        .primary-btn:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 8px 25px rgba(16, 185, 129, 0.4);
+        }
+
+        .secondary-btn {
+            background: transparent;
+            color: #64748b;
+            padding: 1rem 2rem;
+            border: 2px solid #e2e8f0;
+            border-radius: 8px;
+            text-decoration: none;
+            font-weight: 600;
+            transition: all 0.3s ease;
+            display: flex;
+            align-items: center;
+            gap: 0.5rem;
+        }
+
+        .secondary-btn:hover {
+            background: #f8fafc;
+            border-color: #cbd5e1;
+        }
+
+        .trust-indicator {
+            display: flex;
+            align-items: center;
+            gap: 1rem;
+            color: #64748b;
+        }
+
+        .hero-visual {
+            position: relative;
+            animation: slideInRight 1s ease-out;
+        }
+
+        @keyframes slideInRight {
+            from { opacity: 0; transform: translateX(50px); }
+            to { opacity: 1; transform: translateX(0); }
+        }
+
+        .phone-mockup {
+            max-width: 400px;
+            width: 100%;
+            background: linear-gradient(135deg, #7dd3fc, #0ea5e9);
+            border-radius: 30px;
+            padding: 2rem;
+            box-shadow: 0 20px 60px rgba(0, 0, 0, 0.2);
+            transform: perspective(1000px) rotateY(-10deg) rotateX(5deg);
+            transition: all 0.3s ease;
+        }
+
+        .phone-mockup:hover {
+            transform: perspective(1000px) rotateY(-5deg) rotateX(2deg) scale(1.02);
+        }
+
+        .phone-screen {
+            background: white;
+            border-radius: 20px;
+            padding: 1.5rem;
+            height: 500px;
+            overflow: hidden;
+            position: relative;
+        }
+
+        /* Decorative elements */
+        .decorative-shape {
+            position: absolute;
+            border-radius: 50%;
+            opacity: 0.6;
+        }
+
+        .shape-1 {
+            width: 100px;
+            height: 100px;
+            background: linear-gradient(45deg, #10b981, #059669);
+            top: 10%;
+            right: 10%;
+            animation: pulse 3s ease-in-out infinite;
+        }
+
+        .shape-2 {
+            width: 150px;
+            height: 150px;
+            background: linear-gradient(45deg, #3b82f6, #1d4ed8);
+            bottom: 10%;
+            left: -5%;
+            animation: pulse 4s ease-in-out infinite reverse;
+        }
+
+        @keyframes pulse {
+            0%, 100% { transform: scale(1) rotate(0deg); }
+            50% { transform: scale(1.1) rotate(180deg); }
+        }
+
+        /* Trust Section */
+        .trust-section {
+            text-align: center;
+            padding: 2rem 0;
+            background: white;
+        }
+
+        .trust-content {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 0 2rem;
+        }
+
+        /* Features Section */
+        .features-section {
+            padding: 6rem 0;
+            background: linear-gradient(135deg, #f8fafc 0%, #e2e8f0 100%);
+        }
+
+        .features-container {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 0 2rem;
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 4rem;
+            align-items: center;
+        }
+
+        .section-title {
+            font-size: 2.5rem;
+            font-weight: 800;
+            margin-bottom: 1.5rem;
+        }
+
+        .section-title .blue-text {
+            background: linear-gradient(135deg, #3b82f6, #1d4ed8);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+        }
+
+        .section-description {
+            font-size: 1.1rem;
+            color: #64748b;
+            margin-bottom: 2rem;
+        }
+
+        .features-list {
+            display: grid;
+            gap: 1.5rem;
+        }
+
+        .feature-item {
+            display: flex;
+            gap: 1rem;
+            padding: 1.5rem;
+            background: white;
+            border-radius: 12px;
+            box-shadow: 0 4px 6px rgba(0, 0, 0, 0.05);
+            transition: all 0.3s ease;
+        }
+
+        .feature-item:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 12px 30px rgba(0, 0, 0, 0.1);
+        }
+
+        .feature-icon {
+            width: 60px;
+            height: 60px;
+            background: linear-gradient(135deg, #3b82f6, #1d4ed8);
+            border-radius: 12px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: white;
+            font-size: 1.5rem;
+            flex-shrink: 0;
+        }
+
+        .feature-content h3 {
+            font-size: 1.25rem;
+            font-weight: 700;
+            margin-bottom: 0.5rem;
+        }
+
+        .feature-content p {
+            color: #64748b;
+            line-height: 1.6;
+        }
+
+        .world-map {
+            background: linear-gradient(135deg, #064e3b, #047857);
+            border-radius: 20px;
+            padding: 3rem;
+            position: relative;
+            overflow: hidden;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            min-height: 400px;
+        }
+
+        .world-map::before {
+            content: '🌍';
+            font-size: 8rem;
+            opacity: 0.3;
+            animation: rotate 20s linear infinite;
+        }
+
+        @keyframes rotate {
+            from { transform: rotate(0deg); }
+            to { transform: rotate(360deg); }
+        }
+
+        /* Zero Tolerance Section */
+        .zero-tolerance {
+            padding: 6rem 0;
+            background: white;
+            text-align: center;
+        }
+
+        .zero-tolerance-container {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 0 2rem;
+        }
+
+        .stats-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+            gap: 3rem;
+            margin: 3rem 0;
+        }
+
+        .stat-item {
+            text-align: center;
+            padding: 2rem;
+        }
+
+        .stat-number {
+            font-size: 3rem;
+            font-weight: 800;
+            margin-bottom: 0.5rem;
+        }
+
+        .stat-number.blue { color: #3b82f6; }
+        .stat-number.green { color: #10b981; }
+        .stat-number.orange { color: #f59e0b; }
+
+        .stat-label {
+            color: #64748b;
+            font-weight: 600;
+        }
+
+        /* Personalization Section */
+        .personalization {
+            padding: 6rem 0;
+            background: linear-gradient(135deg, #f8fafc 0%, #e2e8f0 100%);
+        }
+
+        .personalization-container {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 0 2rem;
+            text-align: center;
+        }
+
+        .features-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 2rem;
+            margin: 3rem 0;
+        }
+
+        .feature-card {
+            background: white;
+            padding: 2rem;
+            border-radius: 16px;
+            box-shadow: 0 4px 6px rgba(0, 0, 0, 0.05);
+            transition: all 0.3s ease;
+            text-align: left;
+        }
+
+        .feature-card:hover {
+            transform: translateY(-10px);
+            box-shadow: 0 20px 40px rgba(0, 0, 0, 0.1);
+        }
+
+        .card-icon {
+            width: 60px;
+            height: 60px;
+            border-radius: 12px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: white;
+            font-size: 1.5rem;
+            margin-bottom: 1.5rem;
+        }
+
+        .icon-blue { background: linear-gradient(135deg, #3b82f6, #1d4ed8); }
+        .icon-green { background: linear-gradient(135deg, #10b981, #059669); }
+        .icon-gray { background: linear-gradient(135deg, #64748b, #475569); }
+
+        /* CTA Section */
+        .cta-section {
+            padding: 6rem 0;
+            background: linear-gradient(135deg, #1e293b, #0f172a);
+            color: white;
+            text-align: center;
+        }
+
+        .cta-container {
+            max-width: 800px;
+            margin: 0 auto;
+            padding: 0 2rem;
+        }
+
+        .cta-title {
+            font-size: 3rem;
+            font-weight: 800;
+            margin-bottom: 1.5rem;
+        }
+
+        .cta-title .green-text {
+            background: linear-gradient(135deg, #10b981, #059669);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+        }
+
+        .download-buttons {
+            display: flex;
+            justify-content: center;
+            gap: 1rem;
+            margin: 2rem 0;
+            flex-wrap: wrap;
+        }
+
+        .download-btn {
+            padding: 1rem 2rem;
+            border-radius: 12px;
+            text-decoration: none;
+            font-weight: 600;
+            transition: all 0.3s ease;
+            display: flex;
+            align-items: center;
+            gap: 0.5rem;
+        }
+
+        .ios-btn {
+            background: linear-gradient(135deg, #10b981, #059669);
+            color: white;
+            box-shadow: 0 4px 15px rgba(16, 185, 129, 0.3);
+        }
+
+        .android-btn {
+            background: linear-gradient(135deg, #3b82f6, #1d4ed8);
+            color: white;
+            box-shadow: 0 4px 15px rgba(59, 130, 246, 0.3);
+        }
+
+        .download-btn:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 8px 25px rgba(0, 0, 0, 0.2);
+        }
+
+        .social-proof {
+            display: flex;
+            justify-content: center;
+            gap: 4rem;
+            margin: 3rem 0;
+            flex-wrap: wrap;
+        }
+
+        .proof-item {
+            text-align: center;
+        }
+
+        .proof-number {
+            font-size: 2rem;
+            font-weight: 800;
+            margin-bottom: 0.5rem;
+        }
+
+        .proof-label {
+            color: #94a3b8;
+            font-size: 0.9rem;
+        }
+
+        /* Premium Section */
+        .premium-section {
+            padding: 4rem 0;
+            background: white;
+            text-align: center;
+        }
+
+        .premium-container {
+            max-width: 1000px;
+            margin: 0 auto;
+            padding: 0 2rem;
+        }
+
+        .premium-title {
+            font-size: 2.5rem;
+            font-weight: 800;
+            margin-bottom: 1.5rem;
+        }
+
+        .premium-features {
+            display: flex;
+            justify-content: center;
+            gap: 2rem;
+            margin: 2rem 0;
+            flex-wrap: wrap;
+        }
+
+        .premium-feature {
+            padding: 0.75rem 1.5rem;
+            background: #f8fafc;
+            border-radius: 20px;
+            color: #64748b;
+            font-weight: 600;
+        }
+
+        /* Footer */
+        footer {
+            background: linear-gradient(135deg, #1e293b, #0f172a);
+            color: white;
+            padding: 4rem 0 2rem;
+        }
+
+        .footer-container {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 0 2rem;
+        }
+
+        .footer-content {
+            display: grid;
+            grid-template-columns: 2fr 1fr 1fr;
+            gap: 3rem;
+            margin-bottom: 3rem;
+        }
+
+        .footer-brand h3 {
+            font-size: 1.5rem;
+            font-weight: 700;
+            margin-bottom: 1rem;
+        }
+
+        .footer-brand p {
+            color: #94a3b8;
+            line-height: 1.6;
+        }
+
+        .footer-links h4 {
+            font-size: 1.1rem;
+            font-weight: 600;
+            margin-bottom: 1rem;
+        }
+
+        .footer-links ul {
+            list-style: none;
+        }
+
+        .footer-links ul li {
+            margin-bottom: 0.5rem;
+        }
+
+        .footer-links ul li a {
+            color: #94a3b8;
+            text-decoration: none;
+            transition: color 0.3s ease;
+        }
+
+        .footer-links ul li a:hover {
+            color: white;
+        }
+
+        .footer-bottom {
+            border-top: 1px solid #334155;
+            padding-top: 2rem;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            color: #64748b;
+            flex-wrap: wrap;
+            gap: 1rem;
+        }
+
+        /* Responsive Design */
+        @media (max-width: 768px) {
+            .nav-links {
+                display: none;
+            }
+
+            .hero-content {
+                grid-template-columns: 1fr;
+                text-align: center;
+            }
+
+            .hero h1 {
+                font-size: 2.5rem;
+            }
+
+            .features-container {
+                grid-template-columns: 1fr;
+            }
+
+            .stats-grid {
+                grid-template-columns: 1fr;
+            }
+
+            .features-grid {
+                grid-template-columns: 1fr;
+            }
+
+            .hero-buttons {
+                flex-direction: column;
+            }
+
+            .download-buttons {
+                flex-direction: column;
+                align-items: center;
+            }
+
+            .social-proof {
+                gap: 2rem;
+            }
+
+            .footer-content {
+                grid-template-columns: 1fr;
+            }
+
+            .footer-bottom {
+                flex-direction: column;
+                text-align: center;
+            }
+        }
+
+        /* Animations */
+        .fade-in {
+            opacity: 0;
+            transform: translateY(30px);
+            transition: all 0.6s ease;
+        }
+
+        .fade-in.visible {
+            opacity: 1;
+            transform: translateY(0);
+        }
+    </style>
+</head>
+<body>
+    <!-- Header -->
+    <header>
+        <nav>
+            <div class="logo">Essentials</div>
+            <ul class="nav-links">
+                <li><a href="#features">Особливості</a></li>
+                <li><a href="#how-it-works">Як це працює</a></li>
+                <li><a href="#download">Завантажити</a></li>
+            </ul>
+            <a href="#download" class="cta-button">Завантажити зараз</a>
+        </nav>
+    </header>
+
+    <!-- Hero Section -->
+    <section class="hero">
+        <div class="decorative-shape shape-1"></div>
+        <div class="decorative-shape shape-2"></div>
+        <div class="hero-content">
+            <div class="hero-text">
+                <div class="badge">
+                    ✅ 100% Перевірені джерела
+                </div>
+                <h1>
+                    Новини <br>
+                    <span class="green-text">персонально</span> <span class="blue-text">для вас</span>
+                </h1>
+                <p class="hero-description">
+                    Отримуйте короткі, персоналізовані новинні зведення за 2-3 хвилини. ШІ аналізує ваші інтереси та подає тільки те, що справді важливо саме вам.
+                </p>
+                <div class="hero-buttons">
+                    <a href="#download" class="primary-btn">
+                        ⬇️ Завантажити додаток
+                    </a>
+                    <a href="#how-it-works" class="secondary-btn">
+                        ▶️ Дивитися як працює
+                    </a>
+                </div>
+                <div class="trust-indicator">
+                    <div style="display: flex; gap: 5px;">
+                        <div style="width: 30px; height: 30px; background: #10b981; border-radius: 50%;"></div>
+                        <div style="width: 30px; height: 30px; background: #3b82f6; border-radius: 50%; margin-left: -10px;"></div>
+                        <div style="width: 30px; height: 30px; background: #f59e0b; border-radius: 50%; margin-left: -10px;"></div>
+                    </div>
+                    Довіряють понад 50 000 інформованих читачів
+                </div>
+            </div>
+            <div class="hero-visual">
+                <div class="phone-mockup">
+                    <div class="phone-screen">
+                        <div style="text-align: center; padding: 2rem; color: #64748b;">
+                            <h3 style="color: #1e293b; margin-bottom: 1rem;">Essentials</h3>
+                            <div style="background: #f1f5f9; padding: 1rem; border-radius: 8px; margin: 1rem 0;">
+                                <p style="font-size: 0.9rem;">📰 Understanding Russia's latest Actions in Ukraine</p>
+                            </div>
+                            <div style="background: #f1f5f9; padding: 1rem; border-radius: 8px; margin: 1rem 0;">
+                                <p style="font-size: 0.9rem;">🏛️ Nord Stream Pipeline Deal...</p>
+                            </div>
+                            <div style="background: #f1f5f9; padding: 1rem; border-radius: 8px; margin: 1rem 0;">
+                                <p style="font-size: 0.9rem;">💼 OpenAI Striking Back at...</p>
+                            </div>
+                            <div style="background: #f1f5f9; padding: 1rem; border-radius: 8px; margin: 1rem 0;">
+                                <p style="font-size: 0.9rem;">🚨 Heart Threatens to Hit...</p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Trust Section -->
+    <section class="trust-section">
+        <div class="trust-content fade-in">
+            <h2>Довіра і перевірка</h2>
+        </div>
+    </section>
+
+    <!-- Information Integrity Section -->
+    <section id="features" class="features-section">
+        <div class="features-container">
+            <div class="world-map"></div>
+            <div class="fade-in">
+                <h2 class="section-title">
+                    Як ми забезпечуємо <span class="blue-text">цілісність інформації</span>
+                </h2>
+                <p class="section-description">
+                    В епоху інформаційного перевантаження ми використовуємо передові технології та людську експертизу, щоб доставляти лише найнадійніші, перевірені новини на ваші кінчики пальців.
+                </p>
+                <div class="features-list">
+                    <div class="feature-item">
+                        <div class="feature-icon">🛡️</div>
+                        <div class="feature-content">
+                            <h3>ШІ-перевірка</h3>
+                            <p>Кожна стаття перевіряється нашою передовою ШІ-системою з кількома надійними джерелами.</p>
+                        </div>
+                    </div>
+                    <div class="feature-item">
+                        <div class="feature-icon">✅</div>
+                        <div class="feature-content">
+                            <h3>Автентифікація джерел</h3>
+                            <p>Ми агрегуємо лише з перевірених видавців з доведеною репутацією точності.</p>
+                        </div>
+                    </div>
+                    <div class="feature-item">
+                        <div class="feature-icon">⏰</div>
+                        <div class="feature-content">
+                            <h3>Моніторинг в реальному часі</h3>
+                            <p>Безперервний моніторинг забезпечує миттєве виділення застарілої або спростованої інформації.</p>
+                        </div>
+                    </div>
+                    <div class="feature-item">
+                        <div class="feature-icon">👥</div>
+                        <div class="feature-content">
+                            <h3>Редакційний нагляд</h3>
+                            <p>Редактори-люди переглядають та курують контент для підтримки найвищих стандартів якості.</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Zero Tolerance Section -->
+    <section class="zero-tolerance">
+        <div class="zero-tolerance-container fade-in">
+            <h2 class="section-title">Нульова толерантність до дезінформації</h2>
+            <p class="section-description">
+                Наш багаторівневий процес перевірки означає, що ви можете довіряти кожній історії, яка до вас потрапляє. Ми краще покажемо вам менше історій, ніж піде на компроміс щодо точності.
+            </p>
+            <div class="stats-grid">
+                <div class="stat-item">
+                    <div class="stat-number blue">99.9%</div>
+                    <div class="stat-label">Точність</div>
+                </div>
+                <div class="stat-item">
+                    <div class="stat-number green">50+</div>
+                    <div class="stat-label">Перевірених джерел</div>
+                </div>
+                <div class="stat-item">
+                    <div class="stat-number orange">24/7</div>
+                    <div class="stat-label">Моніторинг</div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Personalization Section -->
+    <section class="personalization">
+        <div class="personalization-container">
+            <div class="fade-in">
+                <p style="color: #64748b; margin-bottom: 1rem;">Особливості</p>
+                <h2 class="section-title">
+                    <span class="green-text">Персональні</span> новини за 3 хвилини
+                </h2>
+                <p class="section-description">
+                    ШІ вивчає ваші інтереси та подає короткі, персоналізовані зведення. Отримуйте максимум інформації за мінімум часу.
+                </p>
+            </div>
+            <div class="features-grid fade-in">
+                <div class="feature-card">
+                    <div class="card-icon icon-blue">⚡</div>
+                    <h3>Стислі зведення</h3>
+                    <p>Кожна новина подається у форматі 2-3 речень. Дізнавайтесь суть за секунди, а не хвилини.</p>
+                </div>
+                <div class="feature-card">
+                    <div class="card-icon icon-green">🎯</div>
+                    <h3>ШІ-персоналізація</h3>
+                    <p>Алгоритм вивчає ваші інтереси та подає новини, які дійсно важливі саме для вас та вашої сфери.</p>
+                </div>
+                <div class="feature-card">
+                    <div class="card-icon icon-gray">📱</div>
+                    <h3>Адаптивна стрічка</h3>
+                    <p>Чим більше ви користуєтесь, тим точніше додаток розуміє ваші потреби та налаштовує контент.</p>
+                </div>
+                <div class="feature-card">
+                    <div class="card-icon icon-green">🔔</div>
+                    <h3>Розумні сповіщення</h3>
+                    <p>Отримуйте push лише про найважливіші події у ваших сферах інтересів. Без спаму та зайвої інформації.</p>
+                </div>
+                <div class="feature-card">
+                    <div class="card-icon" style="background: linear-gradient(135deg, #f59e0b, #d97706);">👁️</div>
+                    <h3>Контекст і тенденції</h3>
+                    <p>Додаток пояснює зв'язки між подіями та показує, як новини впливають на ваші інтереси.</p>
+                </div>
+                <div class="feature-card">
+                    <div class="card-icon icon-green">📱</div>
+                    <h3>Швидке споживання</h3>
+                    <p>Прочитайте всі важливі новини дня за 3-5 хвилин у зручному мобільному форматі.</p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Maximum Information Section -->
+    <section class="zero-tolerance">
+        <div class="zero-tolerance-container fade-in">
+            <h2 class="section-title">Максимум інформації за мінімум часу</h2>
+            <p class="section-description">
+                Замість годин читання отримуйте персоналізовані короткі зведення. ШІ аналізує тисячі джерел та подає тільки те, що важливо саме вам.
+            </p>
+            <div class="stats-grid">
+                <div class="stat-item">
+                    <div class="stat-number blue">3хв</div>
+                    <div class="stat-label">Щоденне читання</div>
+                </div>
+                <div class="stat-item">
+                    <div class="stat-number green">95%</div>
+                    <div class="stat-label">Персоналізації</div>
+                </div>
+                <div class="stat-item">
+                    <div class="stat-number orange">2-3</div>
+                    <div class="stat-label">Речення на новину</div>
+                </div>
+                <div class="stat-item">
+                    <div class="stat-number green">100%</div>
+                    <div class="stat-label">Релевантних</div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- CTA Section -->
+    <section id="download" class="cta-section">
+        <div class="cta-container fade-in">
+            <p style="color: #94a3b8; margin-bottom: 1rem;">Завантажити зараз</p>
+            <h2 class="cta-title">
+                Почніть читати <span class="green-text">розумніше сьогодні</span>
+            </h2>
+            <p style="color: #94a3b8; margin-bottom: 2rem;">
+                Приєднуйтесь до тисяч інформованих читачів, які вже відкрили кращий спосіб залишатися в курсі подій світу.
+            </p>
+            <div class="download-buttons">
+                <a href="#" class="download-btn ios-btn">
+                    📱 Завантажити для iOS
+                </a>
+                <a href="#" class="download-btn android-btn">
+                    📱 Завантажити для Android
+                </a>
+            </div>
+            <div class="social-proof">
+                <div class="proof-item">
+                    <div class="proof-number">⭐ 4.9</div>
+                    <div class="proof-label">Рейтинг App Store</div>
+                </div>
+                <div class="proof-item">
+                    <div class="proof-number">⬇️ 50K+</div>
+                    <div class="proof-label">Завантажень</div>
+                </div>
+                <div class="proof-item">
+                    <div class="proof-number">🛡️ 100%</div>
+                    <div class="proof-label">Безпечно і приватно</div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Premium Section -->
+    <section class="premium-section">
+        <div class="premium-container fade-in">
+            <h2 class="premium-title">Преміум якість. Без реклами. Максимальна приватність.</h2>
+            <p class="section-description">
+                Essentials — це преміум додаток, який забезпечує найвищу якість новин. Ми віримо, що доступ до надійної інформації має бути без компромісів.
+            </p>
+            <div class="premium-features">
+                <div class="premium-feature">🔒 Приватність понад усе</div>
+                <div class="premium-feature">🚫 Без реклами</div>
+                <div class="premium-feature">⭐ Преміум якість</div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Footer -->
+    <footer>
+        <div class="footer-container">
+            <div class="footer-content">
+                <div class="footer-brand">
+                    <h3>Essentials</h3>
+                    <p>Перевірені новини, жодного шуму. Залишайтеся інформованими з історіями, які важливі, підкріпленими ретельною перевіркою фактів та джерел.</p>
+                </div>
+                <div class="footer-links">
+                    <h4>Продукт</h4>
+                    <ul>
+                        <li><a href="#features">Особливості</a></li>
+                        <li><a href="#how-it-works">Як це працює</a></li>
+                        <li><a href="#download">Завантажити</a></li>
+                        <li><a href="#">Підтримка</a></li>
+                    </ul>
+                </div>
+                <div class="footer-links">
+                    <h4>Компанія</h4>
+                    <ul>
+                        <li><a href="#">Про нас</a></li>
+                        <li><a href="#">Політика конфіденційності</a></li>
+                        <li><a href="#">Умови використання</a></li>
+                        <li><a href="#">Контакти</a></li>
+                    </ul>
+                </div>
+            </div>
+            <div class="footer-bottom">
+                <div>© 2024 Essentials. Всі права захищені.</div>
+                <div>Створено з турботою для інформованих громадян по всьому світу.</div>
+                <div>Довіряють понад 50 000 читачів у 120+ країнах.</div>
+            </div>
+        </div>
+    </footer>
+
+    <script>
+        // Smooth scrolling for navigation links
+        document.querySelectorAll('a[href^="#"]').forEach(anchor => {
+            anchor.addEventListener('click', function (e) {
+                e.preventDefault();
+                const target = document.querySelector(this.getAttribute('href'));
+                if (target) {
+                    target.scrollIntoView({
+                        behavior: 'smooth',
+                        block: 'start'
+                    });
+                }
+            });
+        });
+
+        // Header scroll effect
+        window.addEventListener('scroll', () => {
+            const header = document.querySelector('header');
+            if (window.scrollY > 100) {
+                header.style.background = 'rgba(255, 255, 255, 0.98)';
+                header.style.boxShadow = '0 4px 20px rgba(0, 0, 0, 0.1)';
+            } else {
+                header.style.background = 'rgba(255, 255, 255, 0.95)';
+                header.style.boxShadow = 'none';
+            }
+        });
+
+        // Intersection Observer for fade-in animations
+        const observerOptions = {
+            threshold: 0.1,
+            rootMargin: '0px 0px -50px 0px'
+        };
+
+        const observer = new IntersectionObserver((entries) => {
+            entries.forEach(entry => {
+                if (entry.isIntersecting) {
+                    entry.target.classList.add('visible');
+                }
+            });
+        }, observerOptions);
+
+        document.querySelectorAll('.fade-in').forEach(el => {
+            observer.observe(el);
+        });
+
+        // Dynamic counter animation
+        function animateCounter(element, target) {
+            let current = 0;
+            const increment = target / 100;
+            const timer = setInterval(() => {
+                current += increment;
+                if (current >= target) {
+                    element.textContent = target;
+                    clearInterval(timer);
+                } else {
+                    element.textContent = Math.floor(current);
+                }
+            }, 20);
+        }
+
+        // Trigger counter animations when stats become visible
+        const statsObserver = new IntersectionObserver((entries) => {
+            entries.forEach(entry => {
+                if (entry.isIntersecting) {
+                    const statNumbers = entry.target.querySelectorAll('.stat-number');
+                    statNumbers.forEach(stat => {
+                        const text = stat.textContent;
+                        const number = parseFloat(text);
+                        if (!isNaN(number)) {
+                            animateCounter(stat, number);
+                        }
+                    });
+                    statsObserver.unobserve(entry.target);
+                }
+            });
+        });
+
+        document.querySelectorAll('.stats-grid').forEach(grid => {
+            statsObserver.observe(grid);
+        });
+
+        // Enhanced mobile experience
+        if (window.innerWidth <= 768) {
+            // Add touch-friendly interactions
+            document.querySelectorAll('.feature-card, .feature-item').forEach(card => {
+                card.addEventListener('touchstart', function() {
+                    this.style.transform = 'scale(0.98)';
+                });
+                card.addEventListener('touchend', function() {
+                    this.style.transform = 'scale(1)';
+                });
+            });
+        }
+
+        // Parallax effect for decorative shapes
+        window.addEventListener('scroll', () => {
+            const scrolled = window.pageYOffset;
+            const rate = scrolled * -0.5;
+            
+            document.querySelectorAll('.decorative-shape').forEach((shape, index) => {
+                const speed = (index + 1) * 0.3;
+                shape.style.transform = `translateY(${rate * speed}px) rotate(${scrolled * 0.1}deg)`;
+            });
+        });
+
+        // Add loading animation
+        window.addEventListener('load', () => {
+            document.body.style.opacity = '1';
+            document.body.style.transition = 'opacity 0.5s ease-in-out';
+        });
+    </script>
+
+    <style>
+        body {
+            opacity: 0;
+        }
+        
+        /* Additional responsive improvements */
+        @media (max-width: 480px) {
+            .hero h1 {
+                font-size: 2rem;
+            }
+            
+            .section-title {
+                font-size: 2rem;
+            }
+            
+            .cta-title {
+                font-size: 2rem;
+            }
+            
+            .premium-title {
+                font-size: 1.8rem;
+            }
+            
+            .phone-mockup {
+                max-width: 300px;
+                transform: none;
+            }
+            
+            .hero-buttons a {
+                width: 100%;
+                justify-content: center;
+            }
+        }
+    </style>
+</body>
+</html>
