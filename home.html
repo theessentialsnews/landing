@@ -1,0 +1,1158 @@
+<!DOCTYPE html>
+<html lang="uk">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Essentials - Лише важливі для тебе новини</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell, sans-serif;
+            line-height: 1.6;
+            color: #333;
+            overflow-x: hidden;
+            opacity: 0;
+            transition: opacity 0.5s ease-in-out;
+        }
+
+        /* Header */
+        header {
+            position: fixed;
+            top: 0;
+            width: 100%;
+            background: rgba(252, 252, 252, 0.95);
+            backdrop-filter: blur(10px);
+            z-index: 1000;
+            padding: 1rem 0;
+            transition: all 0.3s ease;
+        }
+
+        nav {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 0 2rem;
+        }
+
+        .logo {
+            font-size: 1.5rem;
+            font-weight: 700;
+            color: #428BF0;
+        }
+
+        .nav-links {
+            display: flex;
+            list-style: none;
+            gap: 2rem;
+        }
+
+        .nav-links a {
+            text-decoration: none;
+            color: #333;
+            transition: color 0.3s ease;
+        }
+
+        .nav-links a:hover {
+            color: #428BF0;
+        }
+
+        .cta-button {
+            background: linear-gradient(135deg, #428BF0, #1d4ed8);
+            color: white;
+            padding: 0.75rem 1.5rem;
+            border-radius: 8px;
+            text-decoration: none;
+            transition: all 0.3s ease;
+            box-shadow: 0 4px 15px rgba(66, 139, 240, 0.3);
+        }
+
+        .cta-button:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 8px 25px rgba(66, 139, 240, 0.4);
+        }
+
+        /* Hero Section */
+        .hero {
+            min-height: 100vh;
+            background: linear-gradient(135deg, #f8fafc 0%, #e2e8f0 100%);
+            display: flex;
+            align-items: center;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .hero::before {
+            content: '';
+            position: absolute;
+            top: -50%;
+            right: -20%;
+            width: 100%;
+            height: 200%;
+            background: linear-gradient(45deg, rgba(66, 139, 240, 0.1), rgba(29, 201, 92, 0.1));
+            border-radius: 50%;
+            animation: float 20s ease-in-out infinite;
+        }
+
+        @keyframes float {
+            0%, 100% { transform: translateY(0px) rotate(0deg); }
+            50% { transform: translateY(-20px) rotate(180deg); }
+        }
+
+        .hero-content {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 5rem 1rem;
+            text-align: center;
+            position: relative;
+            z-index: 1;
+        }
+
+        .hero h1 {
+            font-size: 3.5rem;
+            font-weight: 800;
+            line-height: 1.2;
+            margin-bottom: 1.5rem;
+            animation: slideInUp 1s ease-out;
+        }
+
+        .hero h1 .highlight {
+            background: linear-gradient(135deg, #1DC95C, #428BF0);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+        }
+
+        @keyframes slideInUp {
+            from { opacity: 0; transform: translateY(50px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+
+        .hero-description {
+            font-size: 1.3rem;
+            color: #64748b;
+            margin-bottom: 2.5rem;
+            animation: slideInUp 1s ease-out 0.2s both;
+        }
+
+        .hero-buttons {
+            display: flex;
+            justify-content: center;
+            gap: 1rem;
+            margin-bottom: 2rem;
+            animation: slideInUp 1s ease-out 0.4s both;
+        }
+
+        .primary-btn {
+            background: linear-gradient(135deg, #1DC95C, #428BF0);
+            color: white;
+            padding: 1.2rem 2.5rem;
+            border-radius: 8px;
+            text-decoration: none;
+            font-weight: 600;
+            font-size: 1.1rem;
+            transition: all 0.3s ease;
+            display: flex;
+            align-items: center;
+            gap: 0.5rem;
+            box-shadow: 0 4px 15px rgba(29, 201, 92, 0.3);
+        }
+
+        .primary-btn:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 8px 25px rgba(29, 201, 92, 0.4);
+        }
+
+        .trust-indicator {
+            color: #64748b;
+            font-style: italic;
+            animation: slideInUp 1s ease-out 0.6s both;
+        }
+
+        /* Problem Section */
+        .problem-section {
+            padding: 6rem 0;
+            background: #ffffff;
+        }
+
+        .problem-container {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 0 2rem;
+            text-align: center;
+        }
+
+        .section-title {
+            font-size: 2.8rem;
+            font-weight: 800;
+            margin-bottom: 2rem;
+        }
+
+        .problem-intro {
+            font-size: 1.2rem;
+            color: #64748b;
+            margin-bottom: 3rem;
+        }
+
+        .swiper-container {
+            margin: 3rem 0;
+            height: 300px;
+            border-radius: 16px;
+            overflow: hidden;
+            box-shadow: 0 8px 30px rgba(0, 0, 0, 0.1);
+        }
+
+        .swiper-slide {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            background: linear-gradient(135deg, #ff6b6b, #ffa500);
+            color: white;
+            font-size: 1.5rem;
+            font-weight: 600;
+        }
+
+        .problem-list {
+            text-align: left;
+            max-width: 600px;
+            margin: 3rem auto;
+        }
+
+        .problem-item {
+            display: flex;
+            align-items: center;
+            gap: 1rem;
+            padding: 1rem 0;
+            font-size: 1.1rem;
+        }
+
+        .problem-item.solution {
+            color: #1DC95C;
+            font-weight: 600;
+            margin-top: 2rem;
+            padding-top: 2rem;
+            border-top: 2px solid #e2e8f0;
+        }
+
+        /* Solution Section */
+        .solution-section {
+            padding: 6rem 0;
+            background: linear-gradient(135deg, #f8fafc 0%, #e2e8f0 100%);
+        }
+
+        .solution-container {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 0 2rem;
+            text-align: center;
+        }
+
+        .solution-title {
+            background: linear-gradient(135deg, #1DC95C, #428BF0);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+        }
+
+        .solution-description {
+            font-size: 1.2rem;
+            color: #64748b;
+            font-style: italic;
+            margin-bottom: 3rem;
+        }
+
+        /* Benefits Section */
+        .benefits-section {
+            padding: 6rem 0;
+            background: white;
+        }
+
+        .benefits-container {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 0 2rem;
+        }
+
+        .benefits-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 2rem;
+            margin: 3rem 0;
+        }
+
+        .benefit-card {
+            background: white;
+            padding: 2rem;
+            border-radius: 16px;
+            box-shadow: 0 4px 6px rgba(0, 0, 0, 0.05);
+            transition: all 0.3s ease;
+            text-align: left;
+            border: 2px solid transparent;
+        }
+
+        .benefit-card:hover {
+            transform: translateY(-10px);
+            box-shadow: 0 20px 40px rgba(0, 0, 0, 0.1);
+            border-color: #428BF0;
+        }
+
+        .card-icon {
+            width: 60px;
+            height: 60px;
+            border-radius: 12px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: white;
+            font-size: 1.5rem;
+            margin-bottom: 1.5rem;
+        }
+
+        .icon-blue { background: linear-gradient(135deg, #428BF0, #1d4ed8); }
+        .icon-green { background: linear-gradient(135deg, #1DC95C, #059669); }
+        .icon-orange { background: linear-gradient(135deg, #EFBB39, #d97706); }
+        .icon-purple { background: linear-gradient(135deg, #8b5cf6, #7c3aed); }
+
+        .benefit-card h3 {
+            font-size: 1.3rem;
+            font-weight: 700;
+            margin-bottom: 1rem;
+        }
+
+        .benefit-card p {
+            color: #64748b;
+            line-height: 1.6;
+        }
+
+        /* Features Section */
+        .features-section {
+            padding: 6rem 0;
+            background: linear-gradient(135deg, #f8fafc 0%, #e2e8f0 100%);
+        }
+
+        /* Pricing Section */
+        .pricing-section {
+            padding: 6rem 0;
+            background: white;
+        }
+
+        .pricing-container {
+            max-width: 800px;
+            margin: 0 auto;
+            padding: 0 2rem;
+            text-align: center;
+        }
+
+        .pricing-card {
+            background: linear-gradient(135deg, #1e293b, #0f172a);
+            color: white;
+            padding: 3rem;
+            border-radius: 20px;
+            margin: 2rem 0;
+            box-shadow: 0 20px 60px rgba(0, 0, 0, 0.3);
+        }
+
+        .pricing-features {
+            list-style: none;
+            margin: 2rem 0;
+        }
+
+        .pricing-features li {
+            padding: 0.5rem 0;
+            font-size: 1.1rem;
+        }
+
+        .why-paid {
+            background: #f8fafc;
+            padding: 2rem;
+            border-radius: 12px;
+            margin: 2rem 0;
+            text-align: left;
+        }
+
+        .why-paid h4 {
+            color: #1e293b;
+            margin-bottom: 1rem;
+        }
+
+        /* Early Access Popup */
+        .early-access-popup {
+            position: fixed;
+            bottom: 2rem;
+            right: 2rem;
+            background: linear-gradient(135deg, #1DC95C, #428BF0);
+            color: white;
+            padding: 1.5rem;
+            border-radius: 16px;
+            box-shadow: 0 8px 30px rgba(0, 0, 0, 0.2);
+            max-width: 300px;
+            z-index: 1000;
+            transform: translateX(400px);
+            opacity: 0;
+            transition: all 0.5s ease;
+            cursor: pointer;
+        }
+
+        .early-access-popup.show {
+            transform: translateX(0);
+            opacity: 1;
+        }
+
+        .popup-close {
+            position: absolute;
+            top: 0.5rem;
+            right: 0.5rem;
+            background: none;
+            border: none;
+            color: white;
+            font-size: 1.2rem;
+            cursor: pointer;
+        }
+
+        /* Waitlist Section */
+        .waitlist-section {
+            padding: 6rem 0;
+            background: linear-gradient(135deg, #1e293b, #0f172a);
+            color: white;
+            text-align: center;
+        }
+
+        .waitlist-container {
+            max-width: 600px;
+            margin: 0 auto;
+            padding: 0 2rem;
+        }
+
+        .waitlist-form {
+            background: white;
+            padding: 2rem;
+            border-radius: 16px;
+            margin: 2rem 0;
+        }
+
+        .form-group {
+            margin-bottom: 1.5rem;
+            text-align: left;
+        }
+
+        .form-group label {
+            display: block;
+            color: #1e293b;
+            font-weight: 600;
+            margin-bottom: 0.5rem;
+        }
+
+        .form-group input[type="email"] {
+            width: 100%;
+            padding: 1rem;
+            border: 2px solid #e2e8f0;
+            border-radius: 8px;
+            font-size: 1rem;
+            transition: border-color 0.3s ease;
+        }
+
+        .form-group input[type="email"]:focus {
+            outline: none;
+            border-color: #428BF0;
+        }
+
+        .checkbox-group {
+            display: flex;
+            align-items: flex-start;
+            gap: 0.75rem;
+            margin-bottom: 2rem;
+            text-align: left;
+        }
+
+        .checkbox-group input[type="checkbox"] {
+            margin-top: 0.25rem;
+            transform: scale(1.2);
+        }
+
+        .checkbox-group label {
+            color: #64748b;
+            font-size: 0.95rem;
+            line-height: 1.5;
+        }
+
+        .submit-btn {
+            background: linear-gradient(135deg, #1DC95C, #428BF0);
+            color: white;
+            padding: 1rem 2rem;
+            border: none;
+            border-radius: 8px;
+            font-size: 1.1rem;
+            font-weight: 600;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            width: 100%;
+        }
+
+        .submit-btn:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 8px 25px rgba(29, 201, 92, 0.4);
+        }
+
+        /* FAQ Section */
+        .faq-section {
+            padding: 6rem 0;
+            background: #f8fafc;
+        }
+
+        .faq-container {
+            max-width: 800px;
+            margin: 0 auto;
+            padding: 0 2rem;
+        }
+
+        .faq-item {
+            background: white;
+            margin-bottom: 1rem;
+            border-radius: 12px;
+            box-shadow: 0 2px 4px rgba(0, 0, 0, 0.05);
+        }
+
+        .faq-question {
+            padding: 1.5rem;
+            cursor: pointer;
+            font-weight: 600;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        .faq-answer {
+            padding: 0 1.5rem 1.5rem;
+            color: #64748b;
+            line-height: 1.6;
+            display: none;
+        }
+
+        .faq-answer.active {
+            display: block;
+        }
+
+        .faq-toggle {
+            transition: transform 0.3s ease;
+        }
+
+        .faq-toggle.active {
+            transform: rotate(45deg);
+        }
+
+        /* Footer */
+        footer {
+            background: linear-gradient(135deg, #1e293b, #0f172a);
+            color: white;
+            padding: 4rem 0 2rem;
+        }
+
+        .footer-container {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 0 2rem;
+            text-align: center;
+        }
+
+        .footer-content {
+            margin-bottom: 2rem;
+        }
+
+        .footer-brand h3 {
+            font-size: 1.8rem;
+            font-weight: 700;
+            margin-bottom: 1rem;
+        }
+
+        .footer-contact {
+            color: #94a3b8;
+            font-size: 1rem;
+            margin: 1rem 0;
+        }
+
+        .footer-contact a {
+            color: #428BF0;
+            text-decoration: none;
+        }
+
+        .footer-bottom {
+            border-top: 1px solid #334155;
+            padding-top: 2rem;
+            color: #64748b;
+        }
+
+        /* Animations */
+        .fade-in {
+            opacity: 0;
+            transform: translateY(30px);
+            transition: all 0.6s ease;
+        }
+
+        .fade-in.visible {
+            opacity: 1;
+            transform: translateY(0);
+        }
+
+        /* Responsive Design */
+        @media (max-width: 768px) {
+            .nav-links {
+                display: none;
+            }
+
+            .hero h1 {
+                font-size: 2.5rem;
+            }
+
+            .section-title {
+                font-size: 2rem;
+            }
+
+            .hero-buttons {
+                flex-direction: column;
+                align-items: center;
+            }
+
+            .primary-btn {
+                width: 100%;
+                max-width: 300px;
+                justify-content: center;
+            }
+
+            .benefits-grid {
+                grid-template-columns: 1fr;
+            }
+
+            .early-access-popup {
+                bottom: 1rem;
+                right: 1rem;
+                left: 1rem;
+                max-width: none;
+                transform: translateY(200px);
+            }
+
+            .early-access-popup.show {
+                transform: translateY(0);
+            }
+
+            .problem-list {
+                padding: 0 1rem;
+            }
+        }
+
+        @media (max-width: 480px) {
+            .hero h1 {
+                font-size: 2rem;
+            }
+            
+            .section-title {
+                font-size: 1.8rem;
+            }
+            
+            .swiper-container {
+                height: 200px;
+            }
+            
+            .swiper-slide {
+                font-size: 1.2rem;
+            }
+        }
+    </style>
+</head>
+<body>
+    <!-- Header -->
+    <header>
+        <nav>
+            <div class="logo">Essentials</div>
+            <ul class="nav-links">
+                <li><a href="#problem">Проблема</a></li>
+                <li><a href="#solution">Рішення</a></li>
+                <li><a href="#benefits">Переваги</a></li>
+                <li><a href="#waitlist">Підписатися</a></li>
+            </ul>
+            <a href="#waitlist" class="cta-button">Спробувати</a>
+        </nav>
+    </header>
+
+    <!-- Hero Section -->
+    <section class="hero">
+        <div class="hero-content">
+            <h1>
+                Лише важливі для тебе новини. <span class="highlight">В одному місці.</span>
+            </h1>
+            <p class="hero-description">
+                Отримуйте новини підібрані під вас. Без драми, фейків та клікбейтів.
+            </p>
+            <div class="hero-buttons">
+                <a href="#waitlist" class="primary-btn">
+                    🚀 Спробувати
+                </a>
+            </div>
+            <p class="trust-indicator">
+                Приєднуйтесь до ранніх користувачів що прагнуть споживати якісні і персоналізовані новини.
+            </p>
+        </div>
+    </section>
+
+    <!-- Problem Section -->
+    <section id="problem" class="problem-section">
+        <div class="problem-container fade-in">
+            <h2 class="section-title">
+                Значна частина новин неякісні
+            </h2>
+            <div class="swiper-container">
+                <div class="swiper-slide">📰 "ШОКУЮЧІ новини: Ви НЕ ПОВІРИТЕ що сталося!"</div>
+                <div class="swiper-slide">🔥 "ТЕРМІНОВО! Цього ви точно не знали..."</div>
+                <div class="swiper-slide">😱 "СЕНСАЦІЯ! Вчені в ШОЦІ від відкриття"</div>
+            </div>
+            <div class="problem-intro">
+                <strong>Якщо ви читаєте новини за все ви теж стикаєтесь з цим:</strong>
+            </div>
+            <div class="problem-list">
+                <div class="problem-item">
+                    <span>❌</span>
+                    <span>Фейкові новини у стрічці Instagram</span>
+                </div>
+                <div class="problem-item">
+                    <span>❌</span>
+                    <span>2 години щодня на пошук правди</span>
+                </div>
+                <div class="problem-item">
+                    <span>❌</span>
+                    <span>Клікбейтів типу "Ви НЕ ПОВІРИТЕ що сталося"</span>
+                </div>
+                <div class="problem-item">
+                    <span>❌</span>
+                    <span>Депресії від токсичних новин</span>
+                </div>
+                <div class="problem-item solution">
+                    <span>✅</span>
+                    <span>Essentials це змінює</span>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Solution Section -->
+    <section id="solution" class="solution-section">
+        <div class="solution-container fade-in">
+            <h2 class="section-title">
+                Ваш <span class="solution-title">персональний фільтр новин</span>
+            </h2>
+            <p class="solution-description">
+                Тільки факти. Тільки перевірене. Тільки те, що важливо саме вам.
+            </p>
+        </div>
+    </section>
+
+    <!-- Benefits Section -->
+    <section id="benefits" class="benefits-section">
+        <div class="benefits-container">
+            <div class="fade-in" style="text-align: center; margin-bottom: 3rem;">
+                <h2 class="section-title">Чому Essentials?</h2>
+                <p style="font-size: 1.1rem; color: #64748b; max-width: 800px; margin: 0 auto;">
+                    Усі функції розроблені з однією метою: забезпечити вас перевіреною та релевантною інформацією швидко та без перевантаження зайвими деталями.
+                </p>
+            </div>
+            <div class="benefits-grid fade-in">
+                <div class="benefit-card">
+                    <div class="card-icon icon-blue">🛡️</div>
+                    <h3>ШІ-перевірка</h3>
+                    <p>Кожна стаття перевіряється нашою передовою ШІ-системою з кількома надійними джерелами.</p>
+                </div>
+                <div class="benefit-card">
+                    <div class="card-icon icon-green">✅</div>
+                    <h3>Аутентифікація джерел</h3>
+                    <p>Ми агрегуємо лише з перевірених видавців з доведеною репутацією точності.</p>
+                </div>
+                <div class="benefit-card">
+                    <div class="card-icon icon-orange">⚡</div>
+                    <h3>Стислі зведення</h3>
+                    <p>Кожна новина подається у форматі 2-3 речень. Дізнавайтесь суть за секунди, а не хвилини.</p>
+                </div>
+                <div class="benefit-card">
+                    <div class="card-icon icon-purple">🎯</div>
+                    <h3>ШІ-персоналізація</h3>
+                    <p>Алгоритм вивчає ваші інтереси та подає новини, які дійсно важливі саме для вас.</p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Features Section -->
+    <section class="features-section">
+        <div class="benefits-container">
+            <div class="fade-in" style="text-align: center; margin-bottom: 3rem;">
+                <h2 class="section-title">Все для вашої зручності</h2>
+            </div>
+            <div class="benefits-grid fade-in">
+                <div class="benefit-card">
+                    <div class="card-icon icon-blue">📱</div>
+                    <h3>Читайте на ходу</h3>
+                    <p>Зручний мобільний формат. Відкрили — прочитали — закрили. За 5 хвилин.</p>
+                </div>
+                <div class="benefit-card">
+                    <div class="card-icon icon-green">🔔</div>
+                    <h3>Розумні сповіщення</h3>
+                    <p>Тільки про дійсно важливе у ваших темах. Без спаму 20 разів на день.</p>
+                </div>
+                <div class="benefit-card">
+                    <div class="card-icon icon-orange">👁️</div>
+                    <h3>Стежте за трендами</h3>
+                    <p>Бачте, які теми обговорюють найбільше. Будьте в курсі всього важливого.</p>
+                </div>
+                <div class="benefit-card">
+                    <div class="card-icon icon-purple">🎨</div>
+                    <h3>Приємний дизайн</h3>
+                    <p>Читати новини має бути приємно. Наш інтерфейс створений для комфорту.</p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Pricing Section -->
+    <section class="pricing-section">
+        <div class="pricing-container fade-in">
+            <h2 class="section-title">Інвестиція в ваш час та спокій</h2>
+            <div class="pricing-card">
+                <h3 style="margin-bottom: 2rem; font-size: 1.8rem;">Базовий план</h3>
+                <ul class="pricing-features">
+                    <li>🆓 <strong>7 днів безкоштовно</strong> — повний доступ до всього</li>
+                    <li>💰 <strong>Потім 99 грн/місяць</strong> — менше ніж лате на кокосовому</li>
+                    <li>⚡ <strong>Скасувати можна будь-коли</strong> — без зобов'язань</li>
+                </ul>
+            </div>
+            <div class="why-paid">
+                <h4>Чому платно?</h4>
+                <p>✅ Без реклами та спонсорського контенту<br>
+                ✅ Команда працює 24/7<br>
+                ✅ Ваші дані не продаються рекламодавцям</p>
+            </div>
+        </div>
+    </section>
+
+    <!-- Waitlist Section -->
+    <section id="waitlist" class="waitlist-section">
+        <div class="waitlist-container fade-in">
+            <h2 class="section-title" style="color: white;">Додати мене у waitlist</h2>
+            <div class="waitlist-form">
+                <form id="waitlistForm">
+                    <div class="form-group">
+                        <label for="email">Email:</label>
+                        <input type="email" id="email" name="email" required>
+                    </div>
+                    <div class="checkbox-group">
+                        <input type="checkbox" id="agreement" name="agreement" required>
+                        <label for="agreement">
+                            Так, хочу спробувати Essentials безкоштовно і згоден на <strong>49 грн/міс</strong> після пробного періоду.
+                        </label>
+                    </div>
+                    <button type="submit" class="submit-btn">
+                        🚀 Приєднатися до waitlist
+                    </button>
+                </form>
+            </div>
+        </div>
+    </section>
+
+    <!-- FAQ Section -->
+    <section class="faq-section">
+        <div class="faq-container fade-in">
+            <h2 class="section-title" style="text-align: center; margin-bottom: 3rem;">Часті питання</h2>
+            
+            <div class="faq-item">
+                <div class="faq-question" onclick="toggleFAQ(this)">
+                    <span>Що означає ранній доступ?</span>
+                    <span class="faq-toggle">+</span>
+                </div>
+                <div class="faq-answer">
+                    Зараз наш додаток знаходиться на стадії MVP і для нас дуже важливо зрозуміти як його зробити кориснішим, тому ми пропонуємо першим користувачам спеціальні умови.
+                </div>
+            </div>
+
+            <div class="faq-item">
+                <div class="faq-question" onclick="toggleFAQ(this)">
+                    <span>Звідки ви берете новини?</span>
+                    <span class="faq-toggle">+</span>
+                </div>
+                <div class="faq-answer">
+                    Ми агрегуємо перевірені джерела, список яких постійно поповнюємо та оновлюємо. Зараз у нашому списку: BBC Україна, Українська правда, Інтерфакс та інші.
+                </div>
+            </div>
+
+            <div class="faq-item">
+                <div class="faq-question" onclick="toggleFAQ(this)">
+                    <span>Що якщо не сподобається?</span>
+                    <span class="faq-toggle">+</span>
+                </div>
+                <div class="faq-answer">
+                    Скасуйте в один клік. Без питань та утримань.
+                </div>
+            </div>
+
+            <div class="faq-item">
+                <div class="faq-question" onclick="toggleFAQ(this)">
+                    <span>Коли буде готовий додаток?</span>
+                    <span class="faq-toggle">+</span>
+                </div>
+                <div class="faq-answer">
+                    Жовтень 2025. Ранні користувачі отримають доступ першими.
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Early Access Popup -->
+    <div id="earlyAccessPopup" class="early-access-popup">
+        <button class="popup-close" onclick="closePopup()">&times;</button>
+        <h3 style="margin-bottom: 1rem; font-size: 1.2rem;">Спеціальна пропозиція для першої 1 000 користувачів</h3>
+        <div style="margin-bottom: 1rem;">
+            <div>✅ <strong>Безкоштовно</strong> 1 місяць, далі 49 грн\міс</div>
+            <div>✅ <strong>50% знижки</strong> на всі пакети в майбутньому</div>
+            <div>✅ <strong>Вплив на розвиток</strong> продукту</div>
+        </div>
+        <button onclick="scrollToWaitlist()" style="background: white; color: #1DC95C; border: none; padding: 0.75rem 1.5rem; border-radius: 8px; font-weight: 600; cursor: pointer; width: 100%;">
+            Приєднатися зараз
+        </button>
+    </div>
+
+    <!-- Footer -->
+    <footer>
+        <div class="footer-container">
+            <div class="footer-content">
+                <div class="footer-brand">
+                    <h3>Essentials</h3>
+                </div>
+                <div class="footer-contact">
+                    <p>Email: <a href="mailto:theessentialsnews@gmail.com">theessentialsnews@gmail.com</a></p>
+                </div>
+            </div>
+            <div class="footer-bottom">
+                © 2025 Essentials
+            </div>
+        </div>
+    </footer>
+
+    <script>
+        // Initialize page
+        window.addEventListener('load', () => {
+            document.body.style.opacity = '1';
+            
+            // Show early access popup after 15 seconds
+            setTimeout(() => {
+                showEarlyAccessPopup();
+            }, 15000);
+        });
+
+        // Smooth scrolling for navigation links
+        document.querySelectorAll('a[href^="#"]').forEach(anchor => {
+            anchor.addEventListener('click', function (e) {
+                e.preventDefault();
+                const target = document.querySelector(this.getAttribute('href'));
+                if (target) {
+                    target.scrollIntoView({
+                        behavior: 'smooth',
+                        block: 'start'
+                    });
+                }
+            });
+        });
+
+        // Header scroll effect
+        window.addEventListener('scroll', () => {
+            const header = document.querySelector('header');
+            if (window.scrollY > 100) {
+                header.style.background = 'rgba(255, 255, 255, 0.98)';
+                header.style.boxShadow = '0 4px 20px rgba(0, 0, 0, 0.1)';
+            } else {
+                header.style.background = 'rgba(252, 252, 252, 0.95)';
+                header.style.boxShadow = 'none';
+            }
+        });
+
+        // Intersection Observer for fade-in animations
+        const observerOptions = {
+            threshold: 0.1,
+            rootMargin: '0px 0px -50px 0px'
+        };
+
+        const observer = new IntersectionObserver((entries) => {
+            entries.forEach(entry => {
+                if (entry.isIntersecting) {
+                    entry.target.classList.add('visible');
+                }
+            });
+        }, observerOptions);
+
+        document.querySelectorAll('.fade-in').forEach(el => {
+            observer.observe(el);
+        });
+
+        // Swiper functionality for problem section
+        let currentSlide = 0;
+        const slides = document.querySelectorAll('.swiper-slide');
+        
+        if (slides.length > 0) {
+            function showSlide(index) {
+                slides.forEach((slide, i) => {
+                    slide.style.display = i === index ? 'flex' : 'none';
+                });
+            }
+            
+            function nextSlide() {
+                currentSlide = (currentSlide + 1) % slides.length;
+                showSlide(currentSlide);
+            }
+            
+            // Initialize first slide
+            showSlide(0);
+            
+            // Auto-advance slides every 3 seconds
+            setInterval(nextSlide, 3000);
+        }
+
+        // FAQ Toggle functionality
+        function toggleFAQ(element) {
+            const answer = element.nextElementSibling;
+            const toggle = element.querySelector('.faq-toggle');
+            
+            // Close all other FAQ items
+            document.querySelectorAll('.faq-answer').forEach(item => {
+                if (item !== answer) {
+                    item.classList.remove('active');
+                    item.style.display = 'none';
+                }
+            });
+            
+            document.querySelectorAll('.faq-toggle').forEach(item => {
+                if (item !== toggle) {
+                    item.textContent = '+';
+                    item.classList.remove('active');
+                }
+            });
+            
+            // Toggle current FAQ item
+            if (answer.classList.contains('active')) {
+                answer.classList.remove('active');
+                answer.style.display = 'none';
+                toggle.textContent = '+';
+                toggle.classList.remove('active');
+            } else {
+                answer.classList.add('active');
+                answer.style.display = 'block';
+                toggle.textContent = '−';
+                toggle.classList.add('active');
+            }
+        }
+
+        // Early Access Popup functionality
+        function showEarlyAccessPopup() {
+            const popup = document.getElementById('earlyAccessPopup');
+            popup.classList.add('show');
+        }
+
+        function closePopup() {
+            const popup = document.getElementById('earlyAccessPopup');
+            popup.classList.remove('show');
+        }
+
+        function scrollToWaitlist() {
+            closePopup();
+            document.getElementById('waitlist').scrollIntoView({
+                behavior: 'smooth',
+                block: 'start'
+            });
+        }
+
+        // Waitlist form submission
+        document.getElementById('waitlistForm').addEventListener('submit', function(e) {
+            e.preventDefault();
+            
+            const email = document.getElementById('email').value;
+            const agreement = document.getElementById('agreement').checked;
+            
+            if (!agreement) {
+                alert('Будь ласка, підтвердьте згоду на умови');
+                return;
+            }
+            
+            // Here you would typically send the email to your backend
+            // For now, we'll just show a success message
+            alert(`Дякуємо! Ваша електронна пошта ${email} додана до waitlist. Ми повідомимо вас, коли додаток буде готовий!`);
+            
+            // Reset form
+            this.reset();
+        });
+
+        // Enhanced mobile experience
+        if (window.innerWidth <= 768) {
+            // Add touch-friendly interactions
+            document.querySelectorAll('.benefit-card').forEach(card => {
+                card.addEventListener('touchstart', function() {
+                    this.style.transform = 'scale(0.98)';
+                });
+                card.addEventListener('touchend', function() {
+                    this.style.transform = 'scale(1)';
+                });
+            });
+        }
+
+        // Parallax effect for hero section
+        window.addEventListener('scroll', () => {
+            const scrolled = window.pageYOffset;
+            const rate = scrolled * -0.5;
+            
+            const heroBackground = document.querySelector('.hero::before');
+            if (heroBackground) {
+                document.querySelector('.hero').style.transform = `translateY(${rate * 0.1}px)`;
+            }
+        });
+
+        // Close popup when clicking outside
+        window.addEventListener('click', (e) => {
+            const popup = document.getElementById('earlyAccessPopup');
+            if (e.target === popup) {
+                closePopup();
+            }
+        });
+
+        // Handle escape key to close popup
+        document.addEventListener('keydown', (e) => {
+            if (e.key === 'Escape') {
+                closePopup();
+            }
+        });
+
+        // Add loading states and form validation
+        document.addEventListener('DOMContentLoaded', function() {
+            const emailInput = document.getElementById('email');
+            const submitBtn = document.querySelector('.submit-btn');
+            
+            emailInput.addEventListener('input', function() {
+                const isValid = this.checkValidity();
+                if (isValid) {
+                    this.style.borderColor = '#1DC95C';
+                } else {
+                    this.style.borderColor = '#e2e8f0';
+                }
+            });
+            
+            // Add form submission loading state
+            document.getElementById('waitlistForm').addEventListener('submit', function() {
+                submitBtn.disabled = true;
+                submitBtn.textContent = 'Додаємо до waitlist...';
+                
+                setTimeout(() => {
+                    submitBtn.disabled = false;
+                    submitBtn.innerHTML = '🚀 Приєднатися до waitlist';
+                }, 2000);
+            });
+        });
+    </script>
+</body>
+</html>
