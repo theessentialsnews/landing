@@ -109,9 +109,21 @@
             max-width: 1200px;
             margin: 0 auto;
             padding: 5rem 1rem;
-            text-align: center;
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 4rem;
+            align-items: center;
             position: relative;
             z-index: 1;
+        }
+
+        .hero-text {
+            animation: slideInLeft 1s ease-out;
+        }
+
+        @keyframes slideInLeft {
+            from { opacity: 0; transform: translateX(-50px); }
+            to { opacity: 1; transform: translateX(0); }
         }
 
         .hero h1 {
@@ -174,70 +186,180 @@
             font-style: italic;
             animation: slideInUp 1s ease-out 0.6s both;
         }
-
-        /* Problem Section */
-        .problem-section {
-            padding: 6rem 0;
-            background: #ffffff;
+        .phone-mockup {
+            max-width: 400px;
+            width: 100%;
+            transition: all 0.3s ease;
         }
-
-        .problem-container {
-            max-width: 1200px;
-            margin: 0 auto;
-            padding: 0 2rem;
-            text-align: center;
+        .phone-mockup:hover {
+            transform: perspective(1000px) rotateY(-5deg) rotateX(2deg) scale(1.02);
         }
-
-        .section-title {
-            font-size: 2.8rem;
-            font-weight: 800;
-            margin-bottom: 2rem;
-        }
-
-        .problem-intro {
-            font-size: 1.2rem;
-            color: #64748b;
-            margin-bottom: 3rem;
-        }
-
-        .swiper-container {
-            margin: 3rem 0;
-            height: 300px;
-            border-radius: 16px;
+        .phone-screen {
+            background: white;
+            border-radius: 20px;
+            padding: 1.5rem;
+            height: 500px;
             overflow: hidden;
-            box-shadow: 0 8px 30px rgba(0, 0, 0, 0.1);
+            position: relative;
+        }
+        
+        @media (max-width: 768px) {
+        .hero-content {
+            grid-template-columns: 1fr; /* одна колонка */
+            text-align: center; /* вирівнюємо текст */
+            gap: 2rem;
         }
 
-        .swiper-slide {
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            background: linear-gradient(135deg, #ff6b6b, #ffa500);
-            color: white;
-            font-size: 1.5rem;
-            font-weight: 600;
+        .hero-text {
+          /*  order: 1; /* текст зверху */
         }
 
-        .problem-list {
-            text-align: left;
-            max-width: 600px;
-            margin: 3rem auto;
+        .phone-mockup {
+            display: none;
+            max-width: 10px;
+            margin: 0 auto;
         }
 
-        .problem-item {
-            display: flex;
-            align-items: center;
-            gap: 1rem;
-            padding: 1rem 0;
+        .hero h1 {
+            font-size: clamp(2rem, 6vw, 2.5rem); /* зменшуємо розмір */
+        }
+
+        .hero-description {
             font-size: 1.1rem;
         }
 
+        .hero-buttons {
+            flex-direction: column;
+        }
+        }
+
+        @media (max-width: 420px) {
+        .hero h1 {
+            font-size: 1.8rem;
+            line-height: 1.3;
+        }
+        .phone-mockup {
+            max-width: 250px;
+        }
+        }
+
+                /* Problem Section */
+        /* ========== Десктоп/таблет ========== */
+        .problem-grid{
+        display:grid;
+        grid-template-columns: 1fr 1fr;
+        gap: 3rem;
+        align-items:center;
+        }
+
+        /* важливо: дозволяє колонкам стискатися, інакше контент “розпирає” ширину */
+        .problem-left,
+        .problem-right{ min-width: 0; }
+
+        .section-title{
+        font-size: clamp(1.8rem, 4vw, 2.8rem); /* робимо заголовок респонсивним */
+        line-height: 1.15;
+        word-break: break-word;
+        }
+
+        .problem-right .swiper-container{
+        width: 100%;
+        height: clamp(220px, 45vw, 350px); /* замість жорсткої висоти */
+        border-radius: 16px;
+        overflow: hidden;
+        box-shadow: 0 8px 30px rgba(0,0,0,.1);
+        }
+
+        .swiper-slide{
+        display:flex;
+        align-items:center;
+        justify-content:center;
+        background:#f9fafb;
+        }
+
+        .swiper-slide img{
+        width:100%;
+        height:100%;
+        object-fit:cover;
+        display:block;
+        }
+
+        /* список не обмежуємо вузькою шириною */
+        .problem-list{ max-width:none; }
+        /*
+        .problem-list {
+        text-align: left;
+        max-width: 500px;
+        }*/
+
+
+        /* ========== Мобільна версія ========== */
+        @media (max-width: 768px){
+        .problem-grid{
+            grid-template-columns: 1fr;   /* одна колонка */
+            gap: 1.25rem;
+        }
+
+        /* порядок: спочатку текст, потім свайпер */
+        .problem-left{ order: 1; text-align: left; }
+        .problem-right{ order: 2; }
+
+        .problem-section{ padding: 3.5rem 0; }
+        .problem-intro{ margin-bottom: 1rem; }
+        .problem-list{ margin: 0; }
+
+        .problem-right .swiper-container{
+            height: clamp(200px, 55vw, 320px); /* нижча висота на мобільному */
+        }
+        }
+
+        /* дуже вузькі екрани */
+        @media (max-width: 420px){
+        .section-title{ font-size: clamp(1.6rem, 6vw, 2rem); }
+        }
+
+        .problem-container {
+        max-width: 1200px;
+        margin: 0 auto;
+        padding: 0 2rem;
+        }
+
+        .problem-intro {
+        font-size: 1.2rem;
+        color: #64748b;
+        margin-bottom: 2rem;
+        }
+
+
+        .problem-item {
+        display: flex;
+        align-items: center;
+        gap: 1rem;
+        padding: 0.7rem 0;
+        font-size: 1.1rem;
+        }
+
         .problem-item.solution {
-            color: #1DC95C;
-            font-weight: 600;
-            margin-top: 2rem;
-            padding-top: 2rem;
-            border-top: 2px solid #e2e8f0;
+        color: #1DC95C;
+        font-weight: 600;
+        margin-top: 2rem;
+        padding-top: 2rem;
+        border-top: 2px solid #e2e8f0;
+        }
+
+
+        .swiper-slide {
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        background: #f9fafb; /* можна прибрати фон */
+        }
+
+        .swiper-slide img {
+        width: 100%;
+        height: 100%;
+        object-fit: cover; /* обрізає зайве, щоб картинка повністю заповнила блок */
+        border-radius: 16px;
         }
 
         /* Solution Section */
@@ -682,61 +804,93 @@
     <!-- Hero Section -->
     <section class="hero">
         <div class="hero-content">
-            <h1>
-                Лише важливі для тебе новини. <span class="highlight">В одному місці.</span>
-            </h1>
-            <p class="hero-description">
-                Отримуйте новини підібрані під вас. Без драми, фейків та клікбейтів.
-            </p>
-            <div class="hero-buttons">
-                <a href="#waitlist" class="primary-btn">
-                    🚀 Спробувати
-                </a>
+            <div class="hero-text">
+                <h1>
+                    Лише важливі для тебе новини. <span class="highlight">В одному місці.</span>
+                </h1>
+                <p class="hero-description">
+                    Отримуйте новини підібрані під вас. Без драми, фейків та клікбейтів.
+                </p>
+                <div class="hero-buttons">
+                    <a href="#waitlist" class="primary-btn">
+                        🚀 Спробувати
+                    </a>
+                </div>
+                <p class="trust-indicator">
+                    Приєднуйтесь до ранніх користувачів що прагнуть споживати якісні і персоналізовані новини.
+                </p>
             </div>
-            <p class="trust-indicator">
-                Приєднуйтесь до ранніх користувачів що прагнуть споживати якісні і персоналізовані новини.
-            </p>
+            <div class="hero-visual">
+                <div class="phone-mockup">
+                    <img src="img/mocup.png" alt="Фейкові новини приклад">
+                </div>
+            </div>
         </div>
     </section>
 
+
+   
+
     <!-- Problem Section -->
     <section id="problem" class="problem-section">
-        <div class="problem-container fade-in">
-            <h2 class="section-title">
-                Значна частина новин неякісні
-            </h2>
+    <div class="problem-container fade-in">
+        <div class="problem-grid">
+        <!-- лів колонка -->
+        <div class="problem-right">
             <div class="swiper-container">
-                <div class="swiper-slide">📰 "ШОКУЮЧІ новини: Ви НЕ ПОВІРИТЕ що сталося!"</div>
-                <div class="swiper-slide">🔥 "ТЕРМІНОВО! Цього ви точно не знали..."</div>
-                <div class="swiper-slide">😱 "СЕНСАЦІЯ! Вчені в ШОЦІ від відкриття"</div>
+            <div class="swiper-slide">
+                <img src="img/example_1.png" alt="Фейкові новини приклад">
             </div>
-            <div class="problem-intro">
-                <strong>Якщо ви читаєте новини за все ви теж стикаєтесь з цим:</strong>
+            <div class="swiper-slide">
+                <img src="img/example_2.png" alt="Фейкові новини приклад">
             </div>
-            <div class="problem-list">
-                <div class="problem-item">
-                    <span>❌</span>
-                    <span>Фейкові новини у стрічці Instagram</span>
-                </div>
-                <div class="problem-item">
-                    <span>❌</span>
-                    <span>2 години щодня на пошук правди</span>
-                </div>
-                <div class="problem-item">
-                    <span>❌</span>
-                    <span>Клікбейтів типу "Ви НЕ ПОВІРИТЕ що сталося"</span>
-                </div>
-                <div class="problem-item">
-                    <span>❌</span>
-                    <span>Депресії від токсичних новин</span>
-                </div>
-                <div class="problem-item solution">
-                    <span>✅</span>
-                    <span>Essentials це змінює</span>
-                </div>
+            <div class="swiper-slide">
+                <img src="img/example_3.png" alt="Фейкові новини приклад">
+            </div>
+            <div class="swiper-slide">
+                <img src="img/example_4.png" alt="Фейкові новини приклад">
+            </div>
+            <div class="swiper-slide">
+                <img src="img/example_5.png" alt="Фейкові новини приклад">
+            </div>
             </div>
         </div>
-    </section>
+        <!-- права колонка -->
+        <div class="problem-left">
+            <h2 class="section-title">
+            Значна частина новин неякісні
+            </h2>
+            <div class="problem-intro">
+            <strong>Якщо ви читаєте новини, ви теж стикаєтесь з цим:</strong>
+            </div>
+            <div class="problem-list">
+            <div class="problem-item">
+                <span>❌</span>
+                <span>Фейкові новини у стрічці Instagram</span>
+            </div>
+            <div class="problem-item">
+                <span>❌</span>
+                <span>2 години щодня на пошук правди</span>
+            </div>
+            <div class="problem-item">
+                <span>❌</span>
+                <span>Клікбейт типу "Ви НЕ ПОВІРИТЕ що сталося"</span>
+            </div>
+            <div class="problem-item">
+                <span>❌</span>
+                <span>Депресії від токсичних новин</span>
+            </div>
+            <div class="problem-item solution">
+                <span>✅</span>
+                <span>Essentials це змінює</span>
+            </div>
+            </div>
+        </div>
+
+    </div>
+  </div>
+</section>
+
 
     <!-- Solution Section -->
     <section id="solution" class="solution-section">
